@@ -1,10 +1,10 @@
 import { FormLabel, Select } from '@chakra-ui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import SelectDirectionCell from '../SelectDirectionCell/SelectDirectionCell'
+import SelectStopCell from '../SelectStopCell/SelectStopCell'
 export const QUERY = gql`
-  query FindRouteQuery {
-    routes {
+  query FindDirectionQuery($route: Int!) {
+    directions(route: $route) {
       id
       name
     }
@@ -19,38 +19,38 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ routes }) => {
+export const Success = ({ route, directions }) => {
   const {
     //handleSubmit,
     register,
     formState: { errors /*isSubmitting*/ },
   } = useForm()
-  let [route, setRoute] = useState(null)
+  let [direction, setDirection] = useState(null)
   useEffect(() => {
-    register('route', { required: true })
+    register('direction', { required: true })
   }, [register])
-  let handleUpdateRoute = (e) => {
-    setRoute(e.target.value)
+  let handleUpdateDirection = (e) => {
+    setDirection(e.target.value)
   }
   return (
     <Fragment>
-      <FormLabel htmlFor="route">Select a route</FormLabel>
+      <FormLabel htmlFor="direction">Select a direction</FormLabel>
       <Select
-        id="route"
-        placeholder="Select a route"
-        {...register('route')}
+        id="direction"
+        placeholder="Select a direction"
+        {...register('direction')}
         onChange={(e) => {
-          console.log(`ROUTE ${e.target.value}`)
-          handleUpdateRoute(e)
+          console.log(`DIRECTION ${e.target.value}`)
+          handleUpdateDirection(e)
         }}
       >
-        {routes.map((route) => (
+        {directions.map((route) => (
           <option key={route.id} value={route.id}>
             {route.name}
           </option>
         ))}
       </Select>
-      {route && <SelectDirectionCell route={route} />}
+      {direction && <SelectStopCell route={route} direction={direction} />}
     </Fragment>
   )
 }
