@@ -1,7 +1,8 @@
 import { FormLabel, Select } from '@chakra-ui/react'
+import { navigate, routes } from '@redwoodjs/router'
 import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import NextTripResultsCell from '../NextTripResultsCell/NextTripResultsCell'
+
 export const QUERY = gql`
   query FindSelectStopQuery($route: Int!, $direction: Int!) {
     stops(route: $route, direction: $direction) {
@@ -19,18 +20,29 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ route, direction, stops }) => {
-  const {
-    //handleSubmit,
-    register,
-    formState: { errors /*isSubmitting*/ },
-  } = useForm()
-  let [stop, setStop] = useState(null)
+export const Success = ({
+  register,
+  route,
+  direction,
+  setStop,
+  stop,
+  stops,
+  setFocus,
+}) => {
   useEffect(() => {
-    register('stop', { required: true })
-  }, [register])
+    if (direction >= 0) {
+      setFocus('stop')
+    }
+  }, [])
   let handleUpdateStop = (e) => {
     setStop(e.target.value)
+    navigate(
+      routes.route({
+        routeId: route,
+        directionId: direction,
+        stopId: e.target.value,
+      })
+    )
   }
   return (
     <Fragment>
@@ -38,9 +50,9 @@ export const Success = ({ route, direction, stops }) => {
       <Select
         id="stop"
         placeholder="Pick a stop"
+        defaultValue={stop}
         {...register('stop')}
         onChange={(e) => {
-          console.log(`STOP ${e.target.value}`)
           handleUpdateStop(e)
         }}
       >
@@ -50,9 +62,6 @@ export const Success = ({ route, direction, stops }) => {
           </option>
         ))}
       </Select>
-      {stop && (
-        <NextTripResultsCell route={route} direction={direction} stop={stop} />
-      )}
     </Fragment>
   )
 }

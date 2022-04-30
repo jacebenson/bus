@@ -1,17 +1,16 @@
-import { FormLabel, Select } from '@chakra-ui/react'
-import { Fragment, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import SelectDirectionCell from '../SelectDirectionCell/SelectDirectionCell'
+import { FormLabel, Input, Select } from '@chakra-ui/react'
+import { navigate, routes, useLocation } from '@redwoodjs/router'
+import { Fragment, useEffect } from 'react'
 export const QUERY = gql`
   query FindRouteQuery {
-    routes {
+    busRoutes: routes {
       id
       name
     }
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => { return (<div>Loading...</div>)}
 
 export const Empty = () => <div>Empty</div>
 
@@ -19,18 +18,25 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ routes }) => {
-  const {
-    //handleSubmit,
-    register,
-    formState: { errors /*isSubmitting*/ },
-  } = useForm()
-  let [route, setRoute] = useState(null)
+export const Success = ({
+  setStop,
+  setDirection,
+  setRoute,
+  route,
+  busRoutes,
+  register,
+  setFocus
+}) => {
   useEffect(() => {
-    register('route', { required: true })
-  }, [register])
+    if (!route) {
+      setFocus('route')
+    }
+  }, [])
   let handleUpdateRoute = (e) => {
-    setRoute(e.target.value)
+    setRoute(parseInt(e.target.value, 10))
+    navigate(
+      routes.route({ routeId: e.target.value })
+    )
   }
   return (
     <Fragment>
@@ -38,19 +44,22 @@ export const Success = ({ routes }) => {
       <Select
         id="route"
         placeholder="Select a route"
+        defaultValue={(()=>{
+          if(route) return route
+
+        })()}
         {...register('route')}
         onChange={(e) => {
           console.log(`ROUTE ${e.target.value}`)
           handleUpdateRoute(e)
         }}
       >
-        {routes.map((route) => (
+        {busRoutes.map((route) => (
           <option key={route.id} value={route.id}>
             {route.name}
           </option>
         ))}
       </Select>
-      {route && <SelectDirectionCell route={route} />}
     </Fragment>
   )
 }

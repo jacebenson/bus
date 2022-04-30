@@ -1,7 +1,6 @@
 import { FormLabel, Select } from '@chakra-ui/react'
-import { Fragment, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import SelectStopCell from '../SelectStopCell/SelectStopCell'
+import { navigate, routes } from '@redwoodjs/router'
+import { Fragment, useEffect } from 'react'
 export const QUERY = gql`
   query FindDirectionQuery($route: Int!) {
     directions(route: $route) {
@@ -19,25 +18,35 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ route, directions }) => {
-  const {
-    //handleSubmit,
-    register,
-    formState: { errors /*isSubmitting*/ },
-  } = useForm()
-  let [direction, setDirection] = useState(null)
+export const Success = ({
+  route,
+  direction,
+  setDirection,
+  register,
+  directions,
+  setFocus,
+}) => {
+  console.log('from select direction', {
+    route,
+    direction,
+  })
   useEffect(() => {
-    register('direction', { required: true })
-  }, [register])
+    if (route) {
+      setFocus('direction')
+    }
+  }, [])
   let handleUpdateDirection = (e) => {
-    setDirection(e.target.value)
+    setDirection(parseInt(e.target.value, 10))
+    navigate(routes.route({ routeId: route, directionId: e.target.value }))
   }
+
   return (
     <Fragment>
       <FormLabel htmlFor="direction">Select a direction</FormLabel>
       <Select
         id="direction"
         placeholder="Select a direction"
+        defaultValue={!isNaN(direction) && direction}
         {...register('direction')}
         onChange={(e) => {
           console.log(`DIRECTION ${e.target.value}`)
@@ -50,7 +59,6 @@ export const Success = ({ route, directions }) => {
           </option>
         ))}
       </Select>
-      {direction && <SelectStopCell route={route} direction={direction} />}
     </Fragment>
   )
 }

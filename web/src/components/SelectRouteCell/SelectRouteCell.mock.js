@@ -1,8 +1,6 @@
-// Define your own mock data here:
-
 export const standard = () => {
   return {
-    routes: [
+    busRoutes: [
       {
         id: 901,
         name: 'METRO Blue Line',

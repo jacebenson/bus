@@ -61,12 +61,14 @@ export const nextTripResults = async ({ route, direction, stop }) => {
   })
   let alerts = json.alerts.map((alert) => {
     return {
-      closed: alert.closed,
-      description: alert.description,
+      closed: alert.stop_closed,
+      description: alert.alert_text,
     }
   })
+  // this can be an array of nulls...
   let departures = json.departures.map((departure) => {
     return {
+      tripId: departure.trip_id,
       actual: departure.actual,
       stopId: departure.stop_id,
       departureText: departure.departure_text,
@@ -74,10 +76,10 @@ export const nextTripResults = async ({ route, direction, stop }) => {
       description: departure.description,
       gate: departure?.gate || '',
       routeId: departure.route_id,
-      routeName: departure.route_name,
+      routeName: departure.route_short_name,
       directionId: departure.direction_id,
-      directionName: departure.direction_name,
-      terminal: departure.terminal,
+      directionName: departure.direction_text,
+      terminal: departure?.terminal || '',
     }
   })
   let nextTripResults = {

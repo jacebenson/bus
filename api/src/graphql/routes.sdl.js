@@ -18,6 +18,7 @@ export const schema = gql`
     name: String
   }
   type Departure {
+    tripId: String!
     actual: Boolean!
     stopId: Int!
     departureText: String!

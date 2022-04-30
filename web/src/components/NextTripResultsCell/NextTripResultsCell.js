@@ -26,6 +26,7 @@ export const QUERY = gql`
         description
       }
       departures {
+        tripId
         actual
         stopId
         departureText
@@ -80,8 +81,9 @@ export const Success = ({ nextTripResults }) => {
               </Tr>
             ) : (
               nextTripResults.departures.map((departure) => {
+                let key = `${departure.tripId}`
                 return (
-                  <Tr key={departure.routeId}>
+                  <Tr key={key}>
                     <Td>{departure.routeName}</Td>
                     <Td>{departure.description}</Td>
                     <Td>{departure.departureText}</Td>
