@@ -5,7 +5,13 @@ import { MetaTags } from '@redwoodjs/web'
 const HomePage = () => (
   <>
     <Heading>Jace Transist Real-time bus information</Heading>
-    <Link to={routes.route()}>Route</Link>
+    <Link
+      to={routes.routeBase({
+        busGlob: `5/`,
+      })}
+    >
+      Route
+    </Link>
   </>
 )
 

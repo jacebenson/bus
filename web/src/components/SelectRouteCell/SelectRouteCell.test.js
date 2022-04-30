@@ -1,6 +1,7 @@
-import { render } from '@redwoodjs/testing/web'
+import { render, screen } from '@redwoodjs/testing/web'
 import { Loading, Empty, Failure, Success } from './SelectRouteCell'
 import { standard } from './SelectRouteCell.mock'
+import SelectRouteCell from './SelectRouteCell'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -9,24 +10,6 @@ import { standard } from './SelectRouteCell.mock'
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('SelectRouteCell', () => {
-  it('renders Loading successfully', () => {
-    expect(() => {
-      render(<Loading />)
-    }).not.toThrow()
-  })
-
-  it('renders Empty successfully', async () => {
-    expect(() => {
-      render(<Empty />)
-    }).not.toThrow()
-  })
-
-  it('renders Failure successfully', async () => {
-    expect(() => {
-      render(<Failure error={new Error('Oh no')} />)
-    }).not.toThrow()
-  })
-
   // When you're ready to test the actual output of your component render
   // you could test that, for example, certain text is present:
   //

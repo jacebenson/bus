@@ -17,7 +17,7 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error.message}</div>
+  <div style={{ color: 'red' }}>(stopcell)Error: {error.message}</div>
 )
 
 export const Success = ({
@@ -37,10 +37,16 @@ export const Success = ({
   let handleUpdateStop = (e) => {
     setStop(e.target.value)
     navigate(
-      routes.route({
-        routeId: route,
-        directionId: direction,
-        stopId: e.target.value,
+      // this is the way to set the path to /route?routeId=1&directionId=1&stopId=MAAM
+      //routes.route({
+      //  routeId: route,
+      //  directionId: direction,
+      //  stopId: e.target.value,
+      //})
+
+      // this is the way to set the path to /route/1/1/MAAM
+      routes.routeBase({
+        busGlob: `${route}/${direction}/${e.target.value}`,
       })
     )
   }

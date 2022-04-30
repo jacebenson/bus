@@ -26,10 +26,6 @@ export const Success = ({
   directions,
   setFocus,
 }) => {
-  console.log('from select direction', {
-    route,
-    direction,
-  })
   useEffect(() => {
     if (route) {
       setFocus('direction')
@@ -37,7 +33,20 @@ export const Success = ({
   }, [])
   let handleUpdateDirection = (e) => {
     setDirection(parseInt(e.target.value, 10))
-    navigate(routes.route({ routeId: route, directionId: e.target.value }))
+    //navigate(routes.route({ routeId: route, directionId: e.target.value }))
+    // this is the way to set the path to /route?routeId=1&directionId=1&stopId=MAAM
+    //routes.route({
+    //  routeId: route,
+    //  directionId: direction,
+    //  stopId: e.target.value,
+    //})
+
+    // this is the way to set the path to /route/1/1/MAAM
+    navigate(
+      routes.routeBase({
+        busGlob: `${route}/${e.target.value}`,
+      })
+    )
   }
 
   return (

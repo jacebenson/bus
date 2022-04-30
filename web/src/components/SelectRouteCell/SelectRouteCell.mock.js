@@ -1,5 +1,35 @@
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+let SetHooksUp = (() => {
+  const { routeId, directionId, stopId } = [1, 1, 'MAAM']
+  let [route, setRoute] = useState(parseInt(routeId, 10))
+  let [direction, setDirection] = useState(parseInt(directionId, 10))
+  let [stop, setStop] = useState(stopId)
+  const {
+    //handleSubmit,
+    setFocus,
+    register,
+    formState: { errors /*isSubmitting*/ },
+  } = useForm()
+  return {
+    register,
+    setFocus,
+    formState: { errors /*isSubmitting*/ },
+    route,
+    direction,
+    stop,
+    setRoute,
+    setDirection,
+    setStop,
+  }
+})()
+
+export const noResponse = () => {
+  return {}
+}
 export const standard = () => {
   return {
+    ...SetHooksUp,
     busRoutes: [
       {
         id: 901,

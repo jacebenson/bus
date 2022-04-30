@@ -1,5 +1,5 @@
-import { FormLabel, Input, Select } from '@chakra-ui/react'
-import { navigate, routes, useLocation } from '@redwoodjs/router'
+import { FormLabel, Select } from '@chakra-ui/react'
+import { navigate, routes } from '@redwoodjs/router'
 import { Fragment, useEffect } from 'react'
 export const QUERY = gql`
   query FindRouteQuery {
@@ -10,7 +10,7 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => { return (<div>Loading...</div>)}
+export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
 
@@ -27,16 +27,17 @@ export const Success = ({
   register,
   setFocus
 }) => {
-  useEffect(() => {
-    if (!route) {
-      setFocus('route')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!route) {
+  //     setFocus('route')
+  //   }
+  // }, [])
   let handleUpdateRoute = (e) => {
     setRoute(parseInt(e.target.value, 10))
-    navigate(
-      routes.route({ routeId: e.target.value })
-    )
+    //navigate(
+    //  routes.route({ routeId: e.target.value })
+    //)
+    navigate(routes.routeBase({busGlob: `/${e.target.value}`,}))
   }
   return (
     <Fragment>
@@ -50,7 +51,6 @@ export const Success = ({
         })()}
         {...register('route')}
         onChange={(e) => {
-          console.log(`ROUTE ${e.target.value}`)
           handleUpdateRoute(e)
         }}
       >

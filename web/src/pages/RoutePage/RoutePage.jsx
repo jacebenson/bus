@@ -6,23 +6,20 @@ import {
   Tab,
   TabPanel,
   Box,
-  Flex,
-  Spacer,
   Center,
-  Square,
-  Circle,
   SimpleGrid,
   GridItem,
 } from '@chakra-ui/react'
 import { MetaTags } from '@redwoodjs/web'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SelectDirectionCell from 'src/components/SelectDirectionCell/SelectDirectionCell'
 import SelectRouteCell from 'src/components/SelectRouteCell/SelectRouteCell'
 import SelectStopCell from 'src/components/SelectStopCell/SelectStopCell'
 import NextTripResultsCell from 'src/components/NextTripResultsCell/NextTripResultsCell'
 import { useParams } from '@redwoodjs/router'
 import { useForm } from 'react-hook-form'
-const RoutePage = () => {
+const RoutePage = ({ test }) => {
+  console.log('test from RoutePage', test)
   const { routeId, directionId, stopId } = useParams()
   console.log('ROUTE', routeId)
   console.log('DIRECTION', directionId)
@@ -49,6 +46,17 @@ const RoutePage = () => {
     formState: { errors /*isSubmitting*/ },
     setFocus,
   }
+  useEffect(() => {
+    //if (!route) {
+    // setFocus('route')
+    //}
+    //if (route) {
+    //  setFocus('direction')
+    //}
+    //if (route && direction) {
+    //  setFocus('stop')
+    //}
+  })
   return (
     <>
       <MetaTags title="Route" description="Route page" />

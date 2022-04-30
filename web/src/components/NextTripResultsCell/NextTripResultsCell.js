@@ -48,26 +48,40 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error.message}</div>
+  <div style={{ color: 'red' }}>(nexttripresultcell)Error: {error.message}</div>
 )
 
 export const Success = ({ nextTripResults }) => {
   return (
     <>
-      <Box p={10}>
+      <Box px={2}>
         <Flex>
-          <Heading>{nextTripResults.stops[0].name}</Heading>
+          <Heading fontSize={{ sm: '20px', md: '32px' }}>
+            {nextTripResults.stops[0].name}
+          </Heading>
           <Spacer />
-          <Text>
-            Stop #:{' '}
-            {nextTripResults.stops.map((stop) => {
-              return stop.id
-            })}
-          </Text>
+          <Box display={'flex'}>
+            {nextTripResults.stops.length === 1 && (
+              <Text>
+                Stop #:
+                {nextTripResults.stops[0].id}
+              </Text>
+            )}
+            {nextTripResults.stops.length > 1 && (
+              <Text>
+                Stop #:
+                {nextTripResults.stops
+                  .map((stop) => {
+                    return stop.id
+                  })
+                  .toString()}
+              </Text>
+            )}
+          </Box>
         </Flex>
-        <Table>
+        <Table size={{ sm: 'sm' }} variant="striped" colorScheme="orange">
           <Thead>
-            <Tr>
+            <Tr backgroundColor={'yellow.300'}>
               <Th>ROUTE</Th>
               <Th>DESTINATION</Th>
               <Th>DEPARTURE</Th>
@@ -84,9 +98,14 @@ export const Success = ({ nextTripResults }) => {
                 let key = `${departure.tripId}`
                 return (
                   <Tr key={key}>
-                    <Td>{departure.routeName}</Td>
+                    <Td pl={2}>
+                      {departure.routeName}
+                      {departure.terminal}
+                    </Td>
                     <Td>{departure.description}</Td>
-                    <Td>{departure.departureText}</Td>
+                    <Td textAlign={'right'} pr={2}>
+                      {departure.departureText}
+                    </Td>
                   </Tr>
                 )
               })
