@@ -49,5 +49,6 @@ export const schema = gql`
       direction: Int!
       stop: String!
     ): nextTripResult @skipAuth
+    nextTripResultsByStop(stop: String!): nextTripResult @skipAuth
   }
 `

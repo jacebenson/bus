@@ -25,19 +25,12 @@ export const Success = ({
   route,
   busRoutes,
   register,
-  setFocus
 }) => {
-  // useEffect(() => {
-  //   if (!route) {
-  //     setFocus('route')
-  //   }
-  // }, [])
   let handleUpdateRoute = (e) => {
     setRoute(parseInt(e.target.value, 10))
-    //navigate(
-    //  routes.route({ routeId: e.target.value })
-    //)
-    navigate(routes.routeBase({busGlob: `/${e.target.value}`,}))
+    setDirection(-1)
+    setStop('')
+    navigate(routes.routeBase({ busGlob: `${e.target.value}` }))
   }
   return (
     <Fragment>
@@ -45,9 +38,8 @@ export const Success = ({
       <Select
         id="route"
         placeholder="Select a route"
-        defaultValue={(()=>{
-          if(route) return route
-
+        defaultValue={(() => {
+          if (route) return route
         })()}
         {...register('route')}
         onChange={(e) => {

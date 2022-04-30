@@ -18,6 +18,7 @@ import SelectStopCell from 'src/components/SelectStopCell/SelectStopCell'
 import NextTripResultsCell from 'src/components/NextTripResultsCell/NextTripResultsCell'
 import { useParams } from '@redwoodjs/router'
 import { useForm } from 'react-hook-form'
+import InputStop from 'src/components/InputStop/InputStop'
 const RoutePage = ({ test }) => {
   console.log('test from RoutePage', test)
   const { routeId, directionId, stopId } = useParams()
@@ -66,9 +67,6 @@ const RoutePage = ({ test }) => {
             Jace Transist Real-time bus information
           </Heading>
         </Center>
-        <SimpleGrid columns={{ md: 3 }} spacing={6}>
-          <GridItem colSpan={1}>...</GridItem>
-        </SimpleGrid>
         <Tabs variant="enclosed">
           <TabList>
             <Tab>One</Tab>
@@ -86,7 +84,7 @@ const RoutePage = ({ test }) => {
               />
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+              <InputStop />
             </TabPanel>
           </TabPanels>
         </Tabs>
