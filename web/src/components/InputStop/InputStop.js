@@ -1,11 +1,11 @@
 import {
   Alert,
-  AlertDescription,
   AlertIcon,
   AlertTitle,
   Box,
   Button,
   Flex,
+  FormLabel,
   Input,
 } from '@chakra-ui/react'
 import { Fragment, useEffect, useState } from 'react'
@@ -15,20 +15,27 @@ const InputStop = ({
   setStop,
   setGetDeparturesByStop,
   getDeparturesByStop,
+  handleSubmit,
+  //errors,
+  register,
 }) => {
   let [error, setError] = useState('')
-  useEffect(() => {
-    if (getDeparturesByStop) {
-      console.log('stopForSearch', stop)
-    }
-  }, [getDeparturesByStop])
   let updateButtonValue = (value) => {
     setStop(value)
   }
+  let onSubmit = () => {
+    if (stop) {
+      setGetDeparturesByStop(true)
+    } else {
+      setError('Please enter a stop')
+    }
+  }
+
   return (
     <Fragment>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Flex gap={1}>
+          <FormLabel htmlFor="stopCode">Stop</FormLabel>
           <Input
             id="stopCode"
             defaultValue={stop}
@@ -41,10 +48,8 @@ const InputStop = ({
             colorScheme={'orange'}
             value={stop}
             onClick={() => {
-              console.log('getDepartures', stop)
               if (stop.length > 0) {
                 setGetDeparturesByStop(true)
-
                 setError('')
               }
               if (stop.length === 0) {
@@ -55,15 +60,15 @@ const InputStop = ({
             Search
           </Button>
         </Flex>
-        {error && (
-          <Box py={2}>
-            <Alert status="error">
-              <AlertIcon />
-              <AlertTitle>{error}</AlertTitle>
-            </Alert>
-          </Box>
-        )}
       </form>
+      {error && (
+        <Box py={2}>
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>{error}</AlertTitle>
+          </Alert>
+        </Box>
+      )}
     </Fragment>
   )
 }

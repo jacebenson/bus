@@ -13,7 +13,6 @@ const Routes = () => {
       <Route path="/" page={HomePage} name="home" />
       <Route path="/route" page={RouteBetaPage} name="routeBaseStart" />
       <Route path="/route/{busGlob...}" page={RouteBetaPage} name="routeBase" />
-      <Route path="/stop" page={StopPage} name="stop" />
       <Route notfound page={NotFoundPage} />
     </Router>
   )

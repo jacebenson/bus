@@ -6,6 +6,7 @@ import {
   Tab,
   TabPanel,
   Box,
+  Image,
 } from '@chakra-ui/react'
 import { MetaTags } from '@redwoodjs/web'
 import { useState } from 'react'
@@ -20,22 +21,24 @@ import InputStop from 'src/components/InputStop/InputStop'
 
 const RouteBetaPage = ({ busGlob }) => {
   let [routeId, directionId, stopId] = (() => {
+    console.log('busGlob', busGlob)
     if (busGlob) {
+      console.log('should retrun', busGlob.split('/'))
       return busGlob.split('/')
     }
     return [-1, -1, '']
   })()
 
-  let [route, setRoute] = useState(parseInt(routeId, 10) || -1)
-  let [direction, setDirection] = useState(parseInt(directionId, 10) || -1)
+  let [route, setRoute] = useState(parseInt(routeId, 10))
+  let [direction, setDirection] = useState(parseInt(directionId, 10))
   let [stopForSearch, setStopForSearch] = useState('')
   let [getDeparturesByStop, setGetDeparturesByStop] = useState(false)
-  let [stop, setStop] = useState(stopId || '')
+  let [stop, setStop] = useState(stopId)
   const {
-    //handleSubmit,
+    handleSubmit,
     setFocus,
     register,
-    formState: { errors /*isSubmitting*/ },
+    formState: { errors, isSubmitting },
   } = useForm()
   let fieldProps = {
     route,
@@ -45,14 +48,22 @@ const RouteBetaPage = ({ busGlob }) => {
     setDirection,
     setStop,
     register,
-    formState: { errors /*isSubmitting*/ },
+    formState: { errors, isSubmitting },
     setFocus,
+    handleSubmit,
   }
   return (
     <>
       <MetaTags title="RouteBeta" description="RouteBeta page" />
       <Box mx={{ md: 10, sm: 0 }}>
-        <Heading>Jace{"'"}s Realtime Bus Lookups</Heading>
+        <Heading pl={2} backgroundColor={'orange'}>
+          Jace{"'"}s Realtime Bus Lookups
+        </Heading>
+        <Image
+          opacity={0.3}
+          src="/metro-transit-banner-unsplash.jpg"
+          fallbackSrc="https://via.placeholder.com/150"
+        />
         <Tabs>
           <TabList>
             <Tab
@@ -93,6 +104,8 @@ const RouteBetaPage = ({ busGlob }) => {
                 setStop={setStopForSearch}
                 getDeparturesByStop={getDeparturesByStop}
                 setGetDeparturesByStop={setGetDeparturesByStop}
+                handleSubmit={handleSubmit}
+                register={register}
               />
               {getDeparturesByStop && stopForSearch && (
                 <NextTripResultsByStopCell stop={stopForSearch} />

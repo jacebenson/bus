@@ -64,7 +64,6 @@ export const stops = async ({ route, direction }) => {
   )
   const json = await response.json()
   let returnedStops = json.map((stop) => {
-    //console.log(stop)
     return {
       name: stop.description,
       placeCode: stop.place_code,

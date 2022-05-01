@@ -84,7 +84,7 @@ export const Success = ({ nextTripResults }) => {
             <Tr backgroundColor={'yellow.300'}>
               <Th>ROUTE</Th>
               <Th>DESTINATION</Th>
-              <Th>DEPARTURE</Th>
+              <Th textAlign={'right'}>DEPARTURE</Th>
             </Tr>
           </Thead>
           <Tbody>

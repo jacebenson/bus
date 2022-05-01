@@ -1,7 +1,6 @@
 import { FormLabel, Select } from '@chakra-ui/react'
 import { navigate, routes } from '@redwoodjs/router'
-import { Fragment, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Fragment, useEffect } from 'react'
 
 export const QUERY = gql`
   query FindSelectStopQuery($route: Int!, $direction: Int!) {

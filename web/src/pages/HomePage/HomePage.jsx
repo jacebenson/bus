@@ -4,6 +4,8 @@ import { MetaTags } from '@redwoodjs/web'
 
 const HomePage = () => (
   <>
+    <MetaTags title="RouteBeta" description="RouteBeta page" />
+
     <Heading>Jace Transist Real-time bus information</Heading>
     <Link
       to={routes.routeBase({

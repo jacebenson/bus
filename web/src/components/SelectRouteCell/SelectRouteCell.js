@@ -1,6 +1,6 @@
 import { FormLabel, Select } from '@chakra-ui/react'
 import { navigate, routes } from '@redwoodjs/router'
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 export const QUERY = gql`
   query FindRouteQuery {
     busRoutes: routes {

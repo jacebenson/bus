@@ -28,6 +28,7 @@ export const Success = ({
 }) => {
   useEffect(() => {
     if (route) {
+      console.log('setting focus on direction')
       setFocus('direction')
     }
   }, [])
@@ -55,7 +56,13 @@ export const Success = ({
       <Select
         id="direction"
         placeholder="Select a direction"
-        defaultValue={!isNaN(direction) && direction}
+        defaultValue={(() => {
+          let directionIsANumber = !isNaN(direction)
+          console.log('directionIsANumber', directionIsANumber, direction)
+          if (directionIsANumber) {
+            return direction
+          }
+        })()}
         {...register('direction')}
         onChange={(e) => {
           console.log(`DIRECTION ${e.target.value}`)
