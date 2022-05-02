@@ -8,11 +8,11 @@ Build a web application that provides functionality similar to the one found at 
 
 ### Required Functionality
 
--[x] Select a bus route from a list of available routes
--[x] Select a direction for a bus route
--[x] For a given route and direction, display the stops
--[x] Respond reasonably to browser back and forward buttons (for example, implement application routing)
--[ ] Include Test code that validates application works as expected.
+- [x] Select a bus route from a list of available routes
+- [x] Select a direction for a bus route
+- [x] For a given route and direction, display the stops
+- [x] Respond reasonably to browser back and forward buttons (for example, implement application routing)
+- [ ] Include Test code that validates application works as expected.
 
 **The "Show My Bus" mapping feature is not expected**
 
