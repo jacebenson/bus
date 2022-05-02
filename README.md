@@ -1,98 +1,51 @@
 # README
 
-Welcome to [RedwoodJS](https://redwoodjs.com)!
+Recreate Metro Transits' NextTrip site sans "Show my bus" feature.
 
-> **Prerequisites**
->
-> - Redwood requires [Node.js](https://nodejs.org/en/) (>=14.19.x <=16.x) and [Yarn](https://yarnpkg.com/) (>=1.15)
-> - Are you on Windows? For best results, follow our [Windows development setup](https://redwoodjs.com/docs/how-to/windows-development-setup) guide
+## Requirements
 
-Start by installing dependencies:
+Build a web application that provides functionality similar to the one found at https://www.metrotransit.org/nextripbadge.aspx.
 
-```
-yarn install
-```
+### Required Functionality
 
-Then change into that directory and start the development server:
+-[x] Select a bus route from a list of available routes
+-[x] Select a direction for a bus route
+-[x] For a given route and direction, display the stops
+-[x] Respond reasonably to browser back and forward buttons (for example, implement application routing)
+-[ ] Include Test code that validates application works as expected.
 
-```
-cd my-redwood-project
-yarn redwood dev
-```
+**The "Show My Bus" mapping feature is not expected**
 
-Your browser should automatically open to http://localhost:8910 where you'll see the Welcome Page, which links out to a ton of great resources.
+## Build this application
 
-> **The Redwood CLI**
->
-> Congratulations on running your first Redwood CLI command!
-> From dev to deploy, the CLI is with you the whole way.
-> And there's quite a few commands at your disposal:
-> ```
-> yarn redwood --help
-> ```
-> For all the details, see the [CLI reference](https://redwoodjs.com/docs/cli-commands).
+To build this, there isn't a whole lot here.
 
-## Prisma and the database
+1. Require Yarn is installed.
+2. Require NodeJS is installed.
+3. Clone this repository
 
-Redwood wouldn't be a full-stack framework without a database. It all starts with the schema. Open the [`schema.prisma`](api/db/schema.prisma) file in `api/db` and replace the `UserExample` model with the following `Post` model:
-
-```
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  body      String
-  createdAt DateTime @default(now())
-}
+```sh
+git clone https://github.com/jacebenson/bus
+cd bus
+yarn
 ```
 
-Redwood uses [Prisma](https://www.prisma.io/), a next-gen Node.js and TypeScript ORM, to talk to the database. Prisma's schema offers a declarative way of defining your app's data models. And Prisma [Migrate](https://www.prisma.io/migrate) uses that schema to make database migrations hassle-free:
+## Run this application
 
-```
-yarn rw prisma migrate dev
+To run this, you just run one command after it's installed.
 
-# ...
-
-? Enter a name for the new migration: › create posts
+```sh
+yarn rw dev
 ```
 
-> `rw` is short for `redwood`
+## List of assumptions
 
-You'll be prompted for the name of your migration. `create posts` will do.
+1. I should abstract the API
+2. Getting it functioning before getting it tested is important.
+3. I should deploy this so I can share a working URL.
+4. Tests are not as important as a working site.
 
-Now let's generate everything we need to perform all the CRUD (Create, Retrieve, Update, Delete) actions on our `Post` model:
+## Useful links
 
-```
-yarn redwood g scaffold post
-```
-
-Navigate to http://localhost:8910/posts/new, fill in the title and body, and click "Save":
-
-Did we just create a post in the database? Yup! With `yarn rw g scaffold <model>`, Redwood created all the pages, components, and services necessary to perform all CRUD actions on our posts table.
-
-## Frontend first with Storybook
-
-Don't know what your data models look like?
-That's more than ok—Redwood integrates Storybook so that you can work on design without worrying about data.
-Mockup, build, and verify your React components, even in complete isolation from the backend:
-
-```
-yarn rw storybook
-```
-
-Before you start, see if the CLI's `setup ui` command has your favorite styling library:
-
-```
-yarn rw setup ui --help
-```
-
-## Testing with Jest
-
-It'd be hard to scale from side project to startup without a few tests.
-Redwood fully integrates Jest with the front and the backends and makes it easy to keep your whole app covered by generating test files with all your components and services:
-
-```
-yarn rw test
-```
-
-To make the integration even more seamless, Redwood augments Jest with database [scenarios](https://redwoodjs.com/docs/testing.md#scenarios)  and [GraphQL mocking](https://redwoodjs.com/docs/testing.md#mocking-graphql-calls).
-
+NextTrip API documentation: https://svc.metrotransit.org/nextrip
+Swagger: https://svc.metrotransit.org/swagger/index.html
